@@ -26,6 +26,8 @@ import javax.swing.JTextField;
 public class MiniGUI {
 
     private static final String TITLE = "A very simple GUI application";
+    private static final String TEXT_BUTTON = "Random number";
+    private static final String TEXT_FIELD = "Next int:";
     private static final int PROPORTION = 5;
     private final Random rng = new Random();
     private final JFrame frame = new JFrame(TITLE);
@@ -42,12 +44,12 @@ public class MiniGUI {
         final JPanel newPanel = new JPanel();
         newPanel.setLayout(new BoxLayout(newPanel, BoxLayout.LINE_AXIS));
         canvas.add(newPanel, BorderLayout.CENTER);
-        final JButton write = new JButton("Print a random number on standard output");
+        final JButton write = new JButton(TEXT_BUTTON);
         newPanel.add(write, BorderLayout.CENTER);
         /*
          * Exercise 1.2 
          */
-        final JTextField field = new JTextField("Content of text field");
+        final JTextField field = new JTextField(TEXT_FIELD);
         newPanel.add(field, BorderLayout.NORTH);
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,7 +61,7 @@ public class MiniGUI {
             public void actionPerformed(final ActionEvent e) {
                 final int randomInt = rng.nextInt();
                 System.out.println(randomInt);
-                field.setText(Integer.toString(randomInt));
+                field.setText(TEXT_FIELD + Integer.toString(randomInt));
             }
         });
     }
