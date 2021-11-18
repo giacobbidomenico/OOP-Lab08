@@ -57,7 +57,9 @@ public class MiniGUI {
         write.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                System.out.println(rng.nextInt());
+                final int randomInt = rng.nextInt();
+                System.out.println(randomInt);
+                field.setText(Integer.toString(randomInt));
             }
         });
     }
