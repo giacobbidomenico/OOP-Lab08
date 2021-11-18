@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+
 /**
  * This class is a simple application that writes a random number on a file.
  * 
@@ -33,7 +34,7 @@ public class MiniGUI {
     private final JFrame frame = new JFrame(TITLE);
 
     /**
-     * 
+     * Builds a new {@link MiniGUI}.
      */
     public MiniGUI() {
         final JPanel canvas = new JPanel();
@@ -65,7 +66,9 @@ public class MiniGUI {
             }
         });
     }
-
+    /*
+     *  Display the GUI realized in the constructor of the class
+     */
     private void display() {
         /*
          * Make the frame one fifth the resolution of the screen. This very method is
