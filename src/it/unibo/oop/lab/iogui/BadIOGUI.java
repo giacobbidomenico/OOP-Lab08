@@ -5,8 +5,12 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.BoxLayout;
@@ -48,6 +52,26 @@ public class BadIOGUI {
         newPanel.add(write);
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        /*
+         * Exercise 1.2 and Exercise 1.3
+         */
+        final JButton read = new JButton("Read from file");
+        newPanel.add(read);
+        read.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                try {
+                    final List<String> rows = Files.readAllLines(new File(PATH).toPath());
+                    for (final String row : rows) {
+                        System.out.println(row);
+                    }
+                } catch (IOException ex) {
+                    System.out.println("Error,reveled exception: " + ex);
+                    JOptionPane.showMessageDialog(frame, ex, "IOException", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
+            }
+        });
         /*
          * Handlers
          */
