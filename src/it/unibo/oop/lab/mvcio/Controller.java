@@ -1,19 +1,35 @@
 package it.unibo.oop.lab.mvcio;
 
+import java.io.File;
+
 /**
  * 
  */
 public class Controller {
-
+    private static final String HOME_DIRECTORY = System.getProperty("user.home");
+    private static final String SEPARATOR = System.getProperty("file.separator");
+    private static final String DEFAULT_FILE = "output.txt";
+    private File currentFile = new File(HOME_DIRECTORY + SEPARATOR + DEFAULT_FILE);
     /*
      * This class must implement a simple controller responsible of I/O access. It
      * considers a single file at a time, and it is able to serialize objects in it.
      * 
      * Implement this class with:
+     */ 
+    /* 1) A method for setting a File as current file
+     */
+    /**
      * 
-     * 1) A method for setting a File as current file
-     * 
-     * 2) A method for getting the current File
+     * @param file
+     */
+    public void setCurrentFile(final File file) {
+        if (file.exists()) {
+            this.currentFile = file;
+        } else {
+            throw new IllegalArgumentException("File does not exist");
+        }
+    }
+    /* 2) A method for getting the current File
      * 
      * 3) A method for getting the path (in form of String) of the current File
      * 
