@@ -1,6 +1,9 @@
 package it.unibo.oop.lab.mvcio;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintStream;
 
 /**
  * This class must implement a simple controller responsible of I/O access. It
@@ -39,10 +42,19 @@ public class Controller {
     public String getCurrentFilePath() {
         return this.currentFile.getPath();
     }
-    /* 4) A method that gets a String as input and saves its content on the current
-     * file. This method may throw an IOException.
+    /**
+     * A method that gets a String as input and saves its content on the current
+     * file.
      * 
-     * 5) By default, the current file is "output.txt" inside the user home folder.
+     * @param content
+     * @throws IOException
+     */
+    public void save(final String content) throws IOException {
+        try (PrintStream pstream = new PrintStream(this.currentFile)) {
+            pstream.println(content);
+        }
+    }
+    /* 5) By default, the current file is "output.txt" inside the user home folder.
      * A String representing the local user home folder can be accessed using
      * System.getProperty("user.home"). The separator symbol (/ on *nix, \ on
      * Windows) can be obtained as String through the method
