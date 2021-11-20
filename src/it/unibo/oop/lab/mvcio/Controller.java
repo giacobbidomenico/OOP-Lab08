@@ -3,22 +3,16 @@ package it.unibo.oop.lab.mvcio;
 import java.io.File;
 
 /**
- * 
+ * This class must implement a simple controller responsible of I/O access. It
+ * considers a single file at a time, and it is able to serialize objects in it.
  */
 public class Controller {
     private static final String HOME_DIRECTORY = System.getProperty("user.home");
     private static final String SEPARATOR = System.getProperty("file.separator");
     private static final String DEFAULT_FILE = "output.txt";
     private File currentFile = new File(HOME_DIRECTORY + SEPARATOR + DEFAULT_FILE);
-    /*
-     * This class must implement a simple controller responsible of I/O access. It
-     * considers a single file at a time, and it is able to serialize objects in it.
-     * 
-     * Implement this class with:
-     */ 
-    /* 1) A method for setting a File as current file
-     */
     /**
+     * A method for setting a File as current file.
      * 
      * @param file
      */
@@ -29,9 +23,15 @@ public class Controller {
             throw new IllegalArgumentException("File does not exist");
         }
     }
-    /* 2) A method for getting the current File
+    /**
+     * A method for getting the current File.
      * 
-     * 3) A method for getting the path (in form of String) of the current File
+     * @return the current file
+     */
+    public File getCurrentFile() {
+        return this.currentFile;
+    }
+    /* 3) A method for getting the path (in form of String) of the current File
      * 
      * 4) A method that gets a String as input and saves its content on the current
      * file. This method may throw an IOException.
