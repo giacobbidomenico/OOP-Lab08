@@ -1,7 +1,6 @@
 package it.unibo.oop.lab.mvcio;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 
@@ -54,12 +53,4 @@ public class Controller {
             pstream.println(content);
         }
     }
-    /* 5) By default, the current file is "output.txt" inside the user home folder.
-     * A String representing the local user home folder can be accessed using
-     * System.getProperty("user.home"). The separator symbol (/ on *nix, \ on
-     * Windows) can be obtained as String through the method
-     * System.getProperty("file.separator"). The combined use of those methods leads
-     * to a software that runs correctly on every platform.
-     */
-
 }
