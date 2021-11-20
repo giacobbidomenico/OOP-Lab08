@@ -19,10 +19,11 @@ public class Controller {
      * @param file
      */
     public void setCurrentFile(final File file) {
-        if (file.exists()) {
+        final File parent = file.getParentFile();
+        if (parent.exists()) {
             this.currentFile = file;
         } else {
-            throw new IllegalArgumentException("File does not exist");
+            throw new IllegalArgumentException("Directory of the file doesn't exist");
         }
     }
     /**
