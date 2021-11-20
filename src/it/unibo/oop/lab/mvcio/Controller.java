@@ -31,9 +31,15 @@ public class Controller {
     public File getCurrentFile() {
         return this.currentFile;
     }
-    /* 3) A method for getting the path (in form of String) of the current File
+    /**
+     * A method for getting the path (in form of String) of the current File.
      * 
-     * 4) A method that gets a String as input and saves its content on the current
+     * @return the path of the current file (in a text form)
+     */
+    public String getCurrentFilePath() {
+        return this.currentFile.getPath();
+    }
+    /* 4) A method that gets a String as input and saves its content on the current
      * file. This method may throw an IOException.
      * 
      * 5) By default, the current file is "output.txt" inside the user home folder.
