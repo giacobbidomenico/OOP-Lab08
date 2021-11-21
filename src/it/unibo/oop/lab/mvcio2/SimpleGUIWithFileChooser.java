@@ -63,7 +63,7 @@ public final class SimpleGUIWithFileChooser {
         // create a button to search a file in the filesystem
         final JButton browse = new JButton("Browse");
         browse.addActionListener(new ActionListener() {
-         // actions done at the pressure of the browse button
+        // actions done at the pressure of the browse button
         @Override
         public void actionPerformed(final ActionEvent event) {
             final JFileChooser fileChooser = new JFileChooser();
