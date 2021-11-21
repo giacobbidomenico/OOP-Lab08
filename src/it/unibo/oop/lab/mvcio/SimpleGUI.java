@@ -22,16 +22,22 @@ public final class SimpleGUI {
     private final JFrame frame = new JFrame("Simple GUI");
 
     /**
-     * builds a new {@link SimpleGUI}.
+     * Builds a new {@link SimpleGUI}.
      */
     public SimpleGUI() {
+        // set the main panel
         final JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
+        // create button save and a text area
         final JButton save = new JButton("save");
         final JTextArea textArea = new JTextArea();
+        /*
+         *  insert the text area and the bottom in the center 
+         *  and south of the panel
+         */
         mainPanel.add(textArea, BorderLayout.CENTER);
         mainPanel.add(save, BorderLayout.SOUTH);
-        frame.setContentPane(mainPanel);
+        // actions done at the pressure of the save button
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent event) {
@@ -44,6 +50,8 @@ public final class SimpleGUI {
                 }
             }
         });
+        //frame configuration
+        frame.setContentPane(mainPanel);
         /*
          * Make the frame half the resolution of the screen. This very method is
          * enough for a single screen setup. In case of multiple monitors, the
