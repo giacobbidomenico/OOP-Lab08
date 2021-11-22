@@ -15,17 +15,13 @@ public final class DrawNumberImpl implements DrawNumber {
     private final Random random = new Random();
 
     /**
-     * @param min
-     *            minimum number
-     * @param max
-     *            maximum number
-     * @param attempts
-     *            the maximum number of attempts
+     * 
+     * @param conf
      */
-    public DrawNumberImpl(final int min, final int max, final int attempts) {
-        this.min = min;
-        this.max = max;
-        this.attempts = attempts;
+    public DrawNumberImpl(final Configuration conf) {
+        this.min = conf.getMin();
+        this.max = conf.getMax();
+        this.attempts = conf.getAttempts();
         this.reset();
     }
 
