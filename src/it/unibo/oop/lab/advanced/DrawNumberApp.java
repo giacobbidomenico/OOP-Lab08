@@ -1,25 +1,75 @@
 package it.unibo.oop.lab.advanced;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  */
 public final class DrawNumberApp implements DrawNumberViewObserver {
-
-    private static final int MIN = 0;
-    private static final int MAX = 100;
-    private static final int ATTEMPTS = 10;
     private final DrawNumber model;
-    private final DrawNumberView view;
-
+    private final List<DrawNumberView> views; 
     /**
      * 
+     * @param configFile
+     * @param views
      */
-    public DrawNumberApp() {
-        this.model = new DrawNumberImpl(MIN, MAX, ATTEMPTS);
-        this.view = new DrawNumberViewImpl();
-        this.view.setObserver(this);
-        this.view.start();
+    public DrawNumberApp(final String configFile, final DrawNumberView...views) {
+        this.views = Arrays.asList(Arrays.copyOf(views, views.length));
+        for (final DrawNumberView view : views) {
+            view.setObserver(this);
+            view.start();
+        }
+        final Configuration conf = new Configuration();
+        try (
+            BufferedReader stream = new BufferedReader(
+                    new InputStreamReader(
+                            ClassLoader.getSystemResourceAsStream(configFile)));
+        ) {
+            for (String line = stream.readLine(); line != null; line = stream.readLine()) {
+                final StringTokenizer st = new StringTokenizer(line, ":");
+                if (st.countTokens() == 2) {
+                    final String key = st.nextToken();
+                    final int value = Integer.parseInt(st.nextToken());
+                    switch (key) {
+                    case "maximum":
+                        conf.setMax(value);
+                        break;
+                    case "minimum":
+                        conf.setMin(value);
+                        break;
+                    case "attempts":
+                        conf.setAttempts(value);
+                        break;
+                    default:
+                        displayError("Format of the configuration file wrong!!");
+                        break;
+                    }
+                }
+            }
+        } catch (IOException | NumberFormatException e) {
+            displayError("Error, wrong reading from the configuration file!!");
+        }
+        if (conf.isValidConfiguration()) {
+            this.model = new DrawNumberImpl(conf);
+        } else {
+            this.model = null;
+            displayError("Error, wrong configuration!!!");
+            throw new IllegalArgumentException("Invalid configuration");
+        }
     }
-
+    /**
+     * 
+     * @param message
+     */
+    private void displayError(final String message) {
+        for (final DrawNumberView view: this.views) {
+            view.displayError(message);
+        }
+    }
     @Override
     public void newAttempt(final int n) {
         try {
@@ -47,7 +97,11 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
      *            ignored
      */
     public static void main(final String... args) {
-        new DrawNumberApp();
+        new DrawNumberApp(
+                "config.xml",
+                new DrawNumberViewImpl(),
+                new DrawNumberViewImpl(),
+                new DrawNumberViewImpl());
     }
 
 }
