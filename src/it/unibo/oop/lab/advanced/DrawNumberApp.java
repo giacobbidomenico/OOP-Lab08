@@ -1,6 +1,7 @@
 package it.unibo.oop.lab.advanced;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
@@ -33,7 +34,7 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
                 final StringTokenizer st = new StringTokenizer(line, ":");
                 if (st.countTokens() == 2) {
                     final String key = st.nextToken();
-                    final int value = Integer.parseInt(st.nextToken());
+                    final int value = Integer.parseInt(st.nextToken().trim());
                     switch (key) {
                     case "maximum":
                         conf.setMax(value);
@@ -55,6 +56,7 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
         }
         if (conf.isValidConfiguration()) {
             this.model = new DrawNumberImpl(conf);
+            System.out.println(conf.getMin());
         } else {
             this.model = null;
             displayError("Error, wrong configuration!!!");
@@ -74,11 +76,17 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
     public void newAttempt(final int n) {
         try {
             final DrawResult result = model.attempt(n);
-            this.view.result(result);
+            for (final DrawNumberView view : this.views) {
+                view.result(result);
+            }
         } catch (IllegalArgumentException e) {
-            this.view.numberIncorrect();
+            for (final DrawNumberView view : this.views) {
+                view.numberIncorrect();
+            }
         } catch (AttemptsLimitReachedException e) {
-            view.limitsReached();
+            for (final DrawNumberView view : this.views) {
+                view.limitsReached();
+            }
         }
     }
 
@@ -91,17 +99,19 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
     public void quit() {
         System.exit(0);
     }
-
     /**
+     * 
      * @param args
-     *            ignored
+     * @throws FileNotFoundException
      */
-    public static void main(final String... args) {
+    public static void main(final String... args) throws FileNotFoundException {
         new DrawNumberApp(
-                "config.xml",
+                "config.yml",
                 new DrawNumberViewImpl(),
                 new DrawNumberViewImpl(),
-                new DrawNumberViewImpl());
+                new DrawNumberViewImpl(),
+                new OutputView("output.log"),
+                new OutputView(System.out));
     }
 
 }
