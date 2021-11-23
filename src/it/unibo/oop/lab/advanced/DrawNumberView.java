@@ -26,10 +26,6 @@ public interface DrawNumberView {
     void result(DrawResult res);
 
     /**
-     * Tells the user that the match is lost.
-     */
-    void limitsReached();
-    /**
      * Informs the user if any unexpected error has been found in the Controller.
      * @param message the message about the type of error
      */
