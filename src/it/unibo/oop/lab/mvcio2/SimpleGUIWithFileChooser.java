@@ -63,27 +63,27 @@ public final class SimpleGUIWithFileChooser {
         // create a button to search a file in the filesystem
         final JButton browse = new JButton("Browse");
         browse.addActionListener(new ActionListener() {
-        // actions done at the pressure of the browse button
-        @Override
-        public void actionPerformed(final ActionEvent event) {
-            final JFileChooser fileChooser = new JFileChooser();
-            final int choosenResult = fileChooser.showSaveDialog(frame);
-            switch (choosenResult) {
-            case JFileChooser.APPROVE_OPTION:
-                final File newFile = fileChooser.getSelectedFile();
-                contr.setCurrentFile(newFile);
-                textField.setText(newFile.getPath());
-                break;
-            case JFileChooser.CANCEL_OPTION:
-                break;
-            default:
-                JOptionPane.showMessageDialog(textField,
-                        choosenResult,
-                        "Error,file not revealed",
-                        JOptionPane.ERROR_MESSAGE);
-                break;
+            // actions done at the pressure of the browse button
+            @Override
+            public void actionPerformed(final ActionEvent event) {
+                final JFileChooser fileChooser = new JFileChooser();
+                final int choosenResult = fileChooser.showSaveDialog(frame);
+                switch (choosenResult) {
+                case JFileChooser.APPROVE_OPTION:
+                    final File newFile = fileChooser.getSelectedFile();
+                    contr.setCurrentFile(newFile);
+                    textField.setText(newFile.getPath());
+                    break;
+                case JFileChooser.CANCEL_OPTION:
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(textField,
+                            choosenResult,
+                            "Error,file not revealed",
+                            JOptionPane.ERROR_MESSAGE);
+                    break;
+                }
             }
-        }
         });
         //insert the textField and the browse button in the northPanel
         northPanel.add(textField, BorderLayout.CENTER);
