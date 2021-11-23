@@ -17,7 +17,7 @@ public interface Controller {
      * 
      * @param message the string to print 
      */
-    void setNextIntStringToPrint(String message);
+    void setNextStringToPrint(String message);
     /**
      * A method for getting the next string to print.
      * 
@@ -34,8 +34,7 @@ public interface Controller {
      * A method that prints the current string. If the current string is unset,
      * an IllegalStateException should be thrown
      * 
-     * @return the current String
      * @throws IllegalStateException
      */
-    String printCurrentString();
+    void printCurrentString();
 }
