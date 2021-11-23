@@ -3,7 +3,7 @@ package it.unibo.oop.lab.advanced;
 import java.util.Random;
 
 /**
- *
+ * Implementation of the interface DrawNumberImpl.
  */
 public final class DrawNumberImpl implements DrawNumber {
 
