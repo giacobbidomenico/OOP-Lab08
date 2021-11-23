@@ -10,9 +10,9 @@ public class Configuration {
     /**
      * Builds a new {@link Configuration}.
      * 
-     * @param min
-     * @param max
-     * @param attempts
+     * @param min the minimum value
+     * @param max the maximum value
+     * @param attempts the number of attempts
      */
     public Configuration(final int min, final int max, final int attempts) {
         this.min = min;
