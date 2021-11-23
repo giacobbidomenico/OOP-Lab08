@@ -37,5 +37,5 @@ public interface Controller {
      * @return the current String
      * @throws IllegalStateException
      */
-    String getCurrentString();
+    String printCurrentString();
 }
