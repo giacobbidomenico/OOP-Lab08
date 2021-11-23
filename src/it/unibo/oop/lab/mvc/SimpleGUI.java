@@ -1,9 +1,17 @@
 package it.unibo.oop.lab.mvc;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  * A very simple program using a graphical interface.
@@ -35,10 +43,48 @@ public final class SimpleGUI {
      */
 
     /**
-     * builds a new {@link SimpleGUI}.
+     * Builds a new {@link SimpleGUI}.
      */
     public SimpleGUI() {
-
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        final JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+        final JTextField field = new JTextField();
+        mainPanel.add(field, BorderLayout.NORTH);
+        final JTextArea textArea = new JTextArea();
+        mainPanel.add(textArea, BorderLayout.CENTER);
+        final JPanel southPanel = new JPanel();
+        final JButton print = new JButton("Print");
+        southPanel.add(print);
+        final JButton history = new JButton("History");
+        southPanel.add(history);
+        mainPanel.add(southPanel, BorderLayout.SOUTH);
+        final Controller contr = new ControllerImpl();
+        print.addActionListener(new ActionListener() {
+            // actions done at the pressure of the print button
+            @Override
+            public void actionPerformed(final ActionEvent event) {
+                contr.setNextStringToPrint(field.getText());
+                contr.printCurrentString();
+            }
+        });
+        history.addActionListener(new ActionListener() {
+            // actions done at the pressure of the print button
+            @Override
+            public void actionPerformed(final ActionEvent event) {
+                final StringBuilder message = new StringBuilder();
+                final List<String> historyList = contr.getHistoryOfPrintedStrings();
+                for (final String app : historyList) {
+                    message.append(app);
+                    message.append('\n');
+                }
+                if (!historyList.isEmpty()) {
+                    message.deleteCharAt(message.length() - 1);
+                }
+                textArea.setText(message.toString());
+            }
+        });
+        frame.setContentPane(mainPanel);
         /*
          * Make the frame half the resolution of the screen. This very method is
          * enough for a single screen setup. In case of multiple monitors, the
@@ -61,5 +107,19 @@ public final class SimpleGUI {
          */
         frame.setLocationByPlatform(true);
     }
-
+    /**
+     * Make the frame visible.
+     */
+    private void display() {
+        frame.setVisible(true);
+    }
+    /**
+     * 
+     * @param args
+     *            ignored
+     */
+    public static void main(final String[] args) {
+        final SimpleGUI gui = new SimpleGUI();
+        gui.display();
+    }
 }
