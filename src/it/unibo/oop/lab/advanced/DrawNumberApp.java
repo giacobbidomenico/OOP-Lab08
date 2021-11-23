@@ -9,14 +9,16 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * This class shows views.
  */
 public final class DrawNumberApp implements DrawNumberViewObserver {
     private final DrawNumber model;
     private final List<DrawNumberView> views; 
     /**
+     * Builds a new {@link DrawNumberApp}.
      * 
-     * @param configFile
-     * @param views
+     * @param configFile file where to get the game configuration
+     * @param views views implemented
      */
     public DrawNumberApp(final String configFile, final DrawNumberView...views) {
         this.views = Arrays.asList(Arrays.copyOf(views, views.length));
@@ -64,14 +66,18 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
         }
     }
     /**
+     * Shows the error message in all views.
      * 
-     * @param message
+     * @param message the message to show
      */
     private void displayError(final String message) {
         for (final DrawNumberView view: this.views) {
             view.displayError(message);
         }
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void newAttempt(final int n) {
         try {
@@ -83,18 +89,18 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
             for (final DrawNumberView view : this.views) {
                 view.numberIncorrect();
             }
-        } catch (AttemptsLimitReachedException e) {
-            for (final DrawNumberView view : this.views) {
-                view.limitsReached();
-            }
         }
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void resetGame() {
         this.model.reset();
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void quit() {
         System.exit(0);
