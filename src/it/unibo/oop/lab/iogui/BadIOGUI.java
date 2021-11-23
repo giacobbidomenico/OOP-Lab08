@@ -37,7 +37,7 @@ public class BadIOGUI {
     private final JFrame frame = new JFrame(TITLE);
 
     /**
-     * 
+     * Builds a new {@link BadIOGUI}.
      */
     public BadIOGUI() {
         final JPanel canvas = new JPanel();
@@ -94,7 +94,9 @@ public class BadIOGUI {
             }
         });
     }
-
+    /**
+     * Make the frame visible.
+     */
     private void display() {
         /*
          * Make the frame one fifth the resolution of the screen. This very method is
